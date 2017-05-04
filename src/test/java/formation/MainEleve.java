@@ -27,8 +27,8 @@ public class MainEleve
         List<Eleve> listeDeleves;
         // je demande au DAO de me trouver tous les élèves de la BDD
         listeDeleves = eleveDao.findAll();
-        // mettre à jour l'élève n°3, je change sa note
-        Eleve eleveAChanger = eleveDao.findById(3L);
+        // mettre à jour l'élève n°4, je change sa note
+        Eleve eleveAChanger = eleveDao.findById(4L);
         // je mets à jour au niveau de l'OBJET la note
         eleveAChanger.setNote(20.0f);
         // je mets à jour au niveau BDD !!
