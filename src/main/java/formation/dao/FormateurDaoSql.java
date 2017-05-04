@@ -23,9 +23,11 @@ public class FormateurDaoSql implements FormateurDao
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/formateur", "user", "");
+            conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/formateur", "user", "");
 
-            PreparedStatement ps = conn.prepareStatement("select * from formateur where id=?");
+            PreparedStatement ps = conn
+                    .prepareStatement("select * from formateur where id=?");
             ps.setLong(1, id);
 
             ResultSet rs = ps.executeQuery();
@@ -39,7 +41,8 @@ public class FormateurDaoSql implements FormateurDao
                 formateur.setDtNais(rs.getDate("dtnais"));
                 formateur.setDtDebut(rs.getDate("dtdebut"));
                 formateur.setDtFin(rs.getDate("dtFin"));
-                formateur.setTitre(Titre.permissiveValueOf(rs.getString("titre")));
+                formateur.setTitre(
+                        Titre.permissiveValueOf(rs.getString("titre")));
             }
 
         }
@@ -74,9 +77,11 @@ public class FormateurDaoSql implements FormateurDao
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/formateur", "user", "");
+            conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/formateur", "user", "");
 
-            PreparedStatement ps = conn.prepareStatement("select * from formateur");
+            PreparedStatement ps = conn
+                    .prepareStatement("select * from formateur");
 
             ResultSet rs = ps.executeQuery();
 
@@ -89,7 +94,8 @@ public class FormateurDaoSql implements FormateurDao
                 formateur.setDtNais(rs.getDate("dtnais"));
                 formateur.setDtDebut(rs.getDate("dtdebut"));
                 formateur.setDtFin(rs.getDate("dtFin"));
-                formateur.setTitre(Titre.permissiveValueOf(rs.getString("titre")));
+                formateur.setTitre(
+                        Titre.permissiveValueOf(rs.getString("titre")));
                 formateurs.add(formateur);
             }
 
@@ -124,17 +130,19 @@ public class FormateurDaoSql implements FormateurDao
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/formateur", "user", "");
+            conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/formateur", "user", "");
 
-            PreparedStatement ps = conn
-                    .prepareStatement("insert into formateur (id,nom,prenom,dtnais,dtdebut,dtfin,titre) VALUES(?,?,?,?,?,?,?)");
+            PreparedStatement ps = conn.prepareStatement(
+                    "insert into formateur (id,nom,prenom,dtnais,dtdebut,dtfin,titre) VALUES(?,?,?,?,?,?,?)");
             ps.setLong(1, formateur.getId());
             ps.setString(2, formateur.getNom());
             ps.setString(3, formateur.getPrenom());
             ps.setDate(4, new java.sql.Date(formateur.getDtNais().getTime()));
             if (formateur.getDtDebut() != null)
             {
-                ps.setDate(5, new java.sql.Date(formateur.getDtDebut().getTime()));
+                ps.setDate(5,
+                        new java.sql.Date(formateur.getDtDebut().getTime()));
             }
             else
             {
@@ -142,7 +150,8 @@ public class FormateurDaoSql implements FormateurDao
             }
             if (formateur.getDtFin() != null)
             {
-                ps.setDate(6, new java.sql.Date(formateur.getDtFin().getTime()));
+                ps.setDate(6,
+                        new java.sql.Date(formateur.getDtFin().getTime()));
             }
             else
             {
@@ -180,10 +189,11 @@ public class FormateurDaoSql implements FormateurDao
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/formateur", "user", "");
+            conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/formateur", "user", "");
 
-            PreparedStatement ps = conn
-                    .prepareStatement("update formateur set nom=?,prenom=?,dtnais=?,dtdebut=?,dtfin=?,titre=? where id = ?");
+            PreparedStatement ps = conn.prepareStatement(
+                    "update formateur set nom=?,prenom=?,dtnais=?,dtdebut=?,dtfin=?,titre=? where id = ?");
 
             ps.setLong(7, formateur.getId());
 
@@ -192,7 +202,7 @@ public class FormateurDaoSql implements FormateurDao
             ps.setDate(3, new java.sql.Date(formateur.getDtNais().getTime()));
             ps.setDate(4, new java.sql.Date(formateur.getDtDebut().getTime()));
             ps.setDate(5, new java.sql.Date(formateur.getDtFin().getTime()));
-            ps.setString(6,  formateur.getTitre().getLabel());
+            ps.setString(6, formateur.getTitre().getLabel());
             ps.executeUpdate();
 
         }
@@ -226,9 +236,11 @@ public class FormateurDaoSql implements FormateurDao
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/formateur", "user", "");
+            conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/formateur", "user", "");
 
-            PreparedStatement ps = conn.prepareStatement("delete from formateur where id = ?");
+            PreparedStatement ps = conn
+                    .prepareStatement("delete from formateur where id = ?");
             ps.setLong(1, eleve.getId());
 
             ps.executeUpdate();

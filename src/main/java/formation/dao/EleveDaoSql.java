@@ -17,13 +17,11 @@ import formation.model.Titre;
  * métiers Eleve à l'aide du SQL et au moyen d'une BDD
  * 
  * @author Eric Sultan
- *
  */
 public class EleveDaoSql implements EleveDao
 {
     /*
      * (non-Javadoc)
-     * 
      * @see formation.dao.Dao#findById(java.lang.Object)
      */
     @Override
@@ -34,9 +32,11 @@ public class EleveDaoSql implements EleveDao
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/formateur", "user", "");
+            conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/formateur", "user", "");
 
-            PreparedStatement ps = conn.prepareStatement("select * from eleve where id=?");
+            PreparedStatement ps = conn
+                    .prepareStatement("select * from eleve where id=?");
             ps.setLong(1, id);
 
             ResultSet rs = ps.executeQuery();
@@ -52,7 +52,8 @@ public class EleveDaoSql implements EleveDao
                 // MAJ le lien entre l'élève et le formateur
                 // on va chercher le formateur grâce à son DAO
                 FormateurDao formateurDao = new FormateurDaoSql();
-                Formateur formateur = formateurDao.findById(rs.getLong("formateur_id"));
+                Formateur formateur = formateurDao
+                        .findById(rs.getLong("formateur_id"));
                 // liaison à l'élève
                 eleve.setFormateur(formateur);
             }
@@ -83,7 +84,6 @@ public class EleveDaoSql implements EleveDao
 
     /*
      * (non-Javadoc)
-     * 
      * @see formation.dao.Dao#findAll()
      */
     @Override
@@ -102,9 +102,11 @@ public class EleveDaoSql implements EleveDao
             // 1. Chargement du driver
             Class.forName("com.mysql.jdbc.Driver");
             // 2. Créer la connexion à la BDD
-            connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/formateur", "user", "");
+            connexion = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/formateur", "user", "");
             // 3. Création de la requête (statement)
-            PreparedStatement ps = connexion.prepareStatement("SELECT * FROM eleve");
+            PreparedStatement ps = connexion
+                    .prepareStatement("SELECT * FROM eleve");
             // 4. On exécute la requête
             ResultSet tuple = ps.executeQuery();
             // 5. Parcours de l'ensemble des résultats (ResultSet)
@@ -122,13 +124,15 @@ public class EleveDaoSql implements EleveDao
                 eleve.setNote(tuple.getFloat("note"));
                 // Pour récupérer la référence du type énuméré correspondant
                 // à la chaîne de caractères, on utilise Titre.valueOf
-                eleve.setTitre(Titre.permissiveValueOf(tuple.getString("TITRE")));
+                eleve.setTitre(
+                        Titre.permissiveValueOf(tuple.getString("TITRE")));
 
                 // MAJ le lien entre l'élève et le formateur
                 FormateurDao formateurDao = new FormateurDaoSql();
                 // je récupère l'objet métier correspondant, en l'occurrence, le
                 // Formateur
-                Formateur formateur = formateurDao.findById(tuple.getLong("formateur_id"));
+                Formateur formateur = formateurDao
+                        .findById(tuple.getLong("formateur_id"));
                 // je lie le formateur à l'élève
                 eleve.setFormateur(formateur);
                 // on est content ! ^^ :D =) :) (rofl)
@@ -163,7 +167,6 @@ public class EleveDaoSql implements EleveDao
 
     /*
      * (non-Javadoc)
-     * 
      * @see formation.dao.Dao#create(java.lang.Object)
      */
     @Override
@@ -173,20 +176,23 @@ public class EleveDaoSql implements EleveDao
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/formateur", "user", "");
+            conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/formateur", "user", "");
             // Créer ma requête d'insertion INSERT INTO
             PreparedStatement requete;
             // je teste si l'élève est lié à un formateur
             if (eleve.getFormateur() == null)
             {
-                requete = conn
-                        .prepareStatement("insert into eleve (nom,prenom,dtnais,note,titre)" + " VALUES(?,?,?,?,?)");
+                requete = conn.prepareStatement(
+                        "insert into eleve (nom,prenom,dtnais,note,titre)"
+                                + " VALUES(?,?,?,?,?)");
 
             }
             else
             {
                 requete = conn.prepareStatement(
-                        "insert into eleve (nom,prenom,dtnais,note,titre,formateur_id)" + " VALUES(?,?,?,?,?,?)");
+                        "insert into eleve (nom,prenom,dtnais,note,titre,formateur_id)"
+                                + " VALUES(?,?,?,?,?,?)");
                 requete.setLong(6, eleve.getFormateur().getId());
             }
 
@@ -230,7 +236,6 @@ public class EleveDaoSql implements EleveDao
 
     /*
      * (non-Javadoc)
-     * 
      * @see formation.dao.Dao#update(java.lang.Object)
      */
     @Override
@@ -240,10 +245,11 @@ public class EleveDaoSql implements EleveDao
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/formateur", "user", "");
+            conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/formateur", "user", "");
 
-            PreparedStatement ps = conn
-                    .prepareStatement("update eleve set nom=?,prenom=?,dtnais=?,note=?,titre=? where id = ?");
+            PreparedStatement ps = conn.prepareStatement(
+                    "update eleve set nom=?,prenom=?,dtnais=?,note=?,titre=? where id = ?");
 
             ps.setLong(6, eleve.getId());
 
@@ -286,9 +292,11 @@ public class EleveDaoSql implements EleveDao
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/formateur", "user", "");
+            conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/formateur", "user", "");
 
-            PreparedStatement ps = conn.prepareStatement("delete from eleve where id = ?");
+            PreparedStatement ps = conn
+                    .prepareStatement("delete from eleve where id = ?");
             ps.setLong(1, eleve.getId());
 
             ps.executeUpdate();

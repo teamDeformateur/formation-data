@@ -1,33 +1,40 @@
 package formation.model;
 
-public class Eleve extends Personne {
-	private float note;
-	private Formateur formateur;
-	
-	public Eleve(String nom, String prenom) {
-		super();
-		setNom(nom);
-		setPrenom(prenom);
-	}
+public class Eleve extends Personne
+{
+    private float note;
+    private Formateur formateur;
 
-	public Eleve() {
-		super();
-	}
+    public Eleve(String nom, String prenom)
+    {
+        super();
+        setNom(nom);
+        setPrenom(prenom);
+    }
 
-	public float getNote() {
-		return note;
-	}
+    public Eleve()
+    {
+        super();
+    }
 
-	public void setNote(float note) {
-		this.note = note;
-	}
+    public float getNote()
+    {
+        return note;
+    }
 
-	public Formateur getFormateur() {
-		return formateur;
-	}
+    public void setNote(float note)
+    {
+        this.note = note;
+    }
 
-	public void setFormateur(Formateur formateur) {
-		this.formateur = formateur;
-	}
+    public Formateur getFormateur()
+    {
+        return formateur;
+    }
+
+    public void setFormateur(Formateur formateur)
+    {
+        this.formateur = formateur;
+    }
 
 }
