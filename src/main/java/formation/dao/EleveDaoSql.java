@@ -33,7 +33,7 @@ public class EleveDaoSql implements EleveDao
         {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/formateur", "user", "");
+                    "jdbc:mysql://localhost:3306/formateur", "user", "password");
 
             PreparedStatement ps = conn
                     .prepareStatement("select * from eleve where id=?");
@@ -103,7 +103,7 @@ public class EleveDaoSql implements EleveDao
             Class.forName("com.mysql.jdbc.Driver");
             // 2. Créer la connexion à la BDD
             connexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/formateur", "user", "");
+                    "jdbc:mysql://localhost:3306/formateur", "user", "password");
             // 3. Création de la requête (statement)
             PreparedStatement ps = connexion
                     .prepareStatement("SELECT * FROM eleve");
@@ -177,7 +177,7 @@ public class EleveDaoSql implements EleveDao
         {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/formateur", "user", "");
+                    "jdbc:mysql://localhost:3306/formateur", "user", "password");
             // Créer ma requête d'insertion INSERT INTO
             PreparedStatement requete;
             // je teste si l'élève est lié à un formateur
@@ -246,7 +246,7 @@ public class EleveDaoSql implements EleveDao
         {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/formateur", "user", "");
+                    "jdbc:mysql://localhost:3306/formateur", "user", "password");
 
             PreparedStatement ps = conn.prepareStatement(
                     "update eleve set nom=?,prenom=?,dtnais=?,note=?,titre=? where id = ?");
@@ -293,7 +293,7 @@ public class EleveDaoSql implements EleveDao
         {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/formateur", "user", "");
+                    "jdbc:mysql://localhost:3306/formateur", "user", "password");
 
             PreparedStatement ps = conn
                     .prepareStatement("delete from eleve where id = ?");

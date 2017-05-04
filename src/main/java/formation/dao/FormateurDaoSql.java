@@ -24,7 +24,7 @@ public class FormateurDaoSql implements FormateurDao
         {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/formateur", "user", "");
+                    "jdbc:mysql://localhost:3306/formateur", "user", "password");
 
             PreparedStatement ps = conn
                     .prepareStatement("select * from formateur where id=?");
@@ -78,7 +78,7 @@ public class FormateurDaoSql implements FormateurDao
         {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/formateur", "user", "");
+                    "jdbc:mysql://localhost:3306/formateur", "user", "password");
 
             PreparedStatement ps = conn
                     .prepareStatement("select * from formateur");
@@ -131,7 +131,7 @@ public class FormateurDaoSql implements FormateurDao
         {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/formateur", "user", "");
+                    "jdbc:mysql://localhost:3306/formateur", "user", "password");
 
             PreparedStatement ps = conn.prepareStatement(
                     "insert into formateur (id,nom,prenom,dtnais,dtdebut,dtfin,titre) VALUES(?,?,?,?,?,?,?)");
@@ -190,7 +190,7 @@ public class FormateurDaoSql implements FormateurDao
         {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/formateur", "user", "");
+                    "jdbc:mysql://localhost:3306/formateur", "user", "password");
 
             PreparedStatement ps = conn.prepareStatement(
                     "update formateur set nom=?,prenom=?,dtnais=?,dtdebut=?,dtfin=?,titre=? where id = ?");
@@ -237,7 +237,7 @@ public class FormateurDaoSql implements FormateurDao
         {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/formateur", "user", "");
+                    "jdbc:mysql://localhost:3306/formateur", "user", "password");
 
             PreparedStatement ps = conn
                     .prepareStatement("delete from formateur where id = ?");
