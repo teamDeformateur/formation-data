@@ -21,33 +21,33 @@ public class MainFormation
         EleveDao eleveDao = new EleveDaoSql();
         FormateurDao formateurDao = new FormateurDaoSql();
 
-        Formateur eric = new Formateur();
-        eric.setId(3);
-        eric.setNom("SULTAN");
-        eric.setPrenom("Eric");
-        eric.setTitre(Titre.M);
+        Formateur adolf = new Formateur();
+        adolf.setId(3);
+        adolf.setNom("BRUEL");
+        adolf.setPrenom("Adolf");
+        adolf.setTitre(Titre.M);
 
         // Exemple parse par SimpleDateFormat
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date dtNaisEric = simpleDateFormat.parse("04/01/1978");
+        Date dtNais = simpleDateFormat.parse("04/01/1978");
 
-        eric.setDtNais(dtNaisEric);
+        adolf.setDtNais(dtNais);
 
         // Exemple avec Calendar
         Calendar calendar = Calendar.getInstance();
         calendar.set(1978, 1, 4);
-        eric.setDtDebut(calendar.getTime());
+        adolf.setDtDebut(calendar.getTime());
 
-        formateurDao.create(eric);
+        formateurDao.create(adolf);
 
-        String annee = new SimpleDateFormat("yyyy").format(dtNaisEric);
+        String annee = new SimpleDateFormat("yyyy").format(dtNais);
 
         Eleve emilie = new Eleve("DENG", "Emilie");
         emilie.setId(3);
         emilie.setDtNais(new Date());
         emilie.setNote(14.2F);
         emilie.setTitre(Titre.MLLE);
-        emilie.setFormateur(eric);
+        emilie.setFormateur(adolf);
 
         eleveDao.create(emilie);
 
@@ -56,7 +56,7 @@ public class MainFormation
         ph.setDtNais(new Date());
         ph.setNote(15.7F);
         ph.setTitre(Titre.M);
-        ph.setFormateur(eric);
+        ph.setFormateur(adolf);
 
         eleveDao.create(ph);
 
@@ -65,7 +65,7 @@ public class MainFormation
         sabine.setDtNais(new Date());
         sabine.setNote(15.7F);
         sabine.setTitre(Titre.MLLE);
-        sabine.setFormateur(eric);
+        sabine.setFormateur(adolf);
 
         eleveDao.create(sabine);
 

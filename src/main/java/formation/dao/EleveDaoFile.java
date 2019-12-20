@@ -27,9 +27,107 @@ public class EleveDaoFile implements EleveDao
         this.path = new File(path);
     }
 
-    public File getPath()
+    @Override
+    public void create(Eleve obj)
     {
-        return path;
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        try
+        {
+            fw = new FileWriter(this.path, true);
+            bw = new BufferedWriter(fw);
+
+            bw.write(this.eleveToString(obj));
+            bw.newLine();
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                bw.close();
+                fw.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    @Override
+    public void delete(Eleve obj)
+    {
+        List<Eleve> eleves = this.findAll();
+
+        eleves.remove(obj);
+
+        this.writeEleves(eleves);
+    }
+
+    private String eleveToString(Eleve eleve)
+    {
+        String lineEleve = eleve.getId() + ";";
+        lineEleve += eleve.getNom() + ";";
+        lineEleve += eleve.getPrenom() + ";";
+        lineEleve += new SimpleDateFormat("dd/MM/yyyy").format(eleve.getDtNais()) + ";";
+        lineEleve += eleve.getNote();
+
+        return lineEleve;
+    }
+
+    @Override
+    public List<Eleve> findAll()
+    {
+        List<Eleve> eleves = new ArrayList<>();
+
+        FileReader fr = null;
+        BufferedReader br = null;
+        try
+        {
+            fr = new FileReader(this.path);
+            br = new BufferedReader(fr);
+
+            String lineEleve;
+
+            while ((lineEleve = br.readLine()) != null)
+            {
+
+                eleves.add(this.stringToEleve(lineEleve));
+
+            }
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                br.close();
+                fr.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        return eleves;
+    }
+
+    @Override
+    public List<Eleve> findByFormateur(Formateur formateur)
+    {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
@@ -41,14 +139,14 @@ public class EleveDaoFile implements EleveDao
         BufferedReader br = null;
         try
         {
-            fr = new FileReader(path);
+            fr = new FileReader(this.path);
             br = new BufferedReader(fr);
 
             String lineEleve;
 
             while ((lineEleve = br.readLine()) != null)
             {
-                eleve = stringToEleve(lineEleve);
+                eleve = this.stringToEleve(lineEleve);
 
                 if (id.equals(eleve.getId()))
                 {
@@ -77,158 +175,15 @@ public class EleveDaoFile implements EleveDao
     }
 
     @Override
-    public List<Eleve> findAll()
+    public List<Eleve> findByNote(float note)
     {
-        List<Eleve> eleves = new ArrayList<Eleve>();
-
-        FileReader fr = null;
-        BufferedReader br = null;
-        try
-        {
-            fr = new FileReader(path);
-            br = new BufferedReader(fr);
-
-            String lineEleve;
-
-            while ((lineEleve = br.readLine()) != null)
-            {
-
-                eleves.add(stringToEleve(lineEleve));
-
-            }
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        finally
-        {
-            try
-            {
-                br.close();
-                fr.close();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-
-        return eleves;
+        // TODO Auto-generated method stub
+        return null;
     }
 
-    @Override
-    public void create(Eleve obj)
+    public File getPath()
     {
-        FileWriter fw = null;
-        BufferedWriter bw = null;
-        try
-        {
-            fw = new FileWriter(path, true);
-            bw = new BufferedWriter(fw);
-
-            bw.write(eleveToString(obj));
-            bw.newLine();
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        finally
-        {
-            try
-            {
-                bw.close();
-                fw.close();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-    @Override
-    public Eleve update(Eleve obj)
-    {
-        List<Eleve> eleves = findAll();
-        int i;
-        for (i = 0; i < eleves.size(); i++)
-        {
-            if (obj.getId() == eleves.get(i).getId())
-            {
-                break;
-            }
-        }
-
-        eleves.set(i, obj);
-
-        writeEleves(eleves);
-
-        return obj;
-    }
-
-    @Override
-    public void delete(Eleve obj)
-    {
-        List<Eleve> eleves = findAll();
-
-        eleves.remove(obj);
-
-        writeEleves(eleves);
-    }
-
-    private void writeEleves(List<Eleve> eleves)
-    {
-        FileWriter fw = null;
-        BufferedWriter bw = null;
-        try
-        {
-            PrintWriter writer = new PrintWriter(path);
-            writer.print("");
-            writer.close();
-
-            fw = new FileWriter(path);
-            bw = new BufferedWriter(fw);
-
-            for (Eleve eleve : eleves)
-            {
-
-                bw.write(eleveToString(eleve));
-                bw.newLine();
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        finally
-        {
-            try
-            {
-                bw.close();
-                fw.close();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private String eleveToString(Eleve eleve)
-    {
-        String lineEleve = eleve.getId() + ";";
-        lineEleve += eleve.getNom() + ";";
-        lineEleve += eleve.getPrenom() + ";";
-        lineEleve += new SimpleDateFormat("dd/MM/yyyy")
-                .format(eleve.getDtNais()) + ";";
-        lineEleve += eleve.getNote();
-
-        return lineEleve;
+        return this.path;
     }
 
     private Eleve stringToEleve(String line) throws ParseException
@@ -251,17 +206,61 @@ public class EleveDaoFile implements EleveDao
     }
 
     @Override
-    public List<Eleve> findByNote(float note)
+    public Eleve update(Eleve obj)
     {
-        // TODO Auto-generated method stub
-        return null;
+        List<Eleve> eleves = this.findAll();
+        int i;
+        for (i = 0; i < eleves.size(); i++)
+        {
+            if (obj.getId() == eleves.get(i).getId())
+            {
+                break;
+            }
+        }
+
+        eleves.set(i, obj);
+
+        this.writeEleves(eleves);
+
+        return obj;
     }
 
-    @Override
-    public List<Eleve> findByFormateur(Formateur formateur)
+    private void writeEleves(List<Eleve> eleves)
     {
-        // TODO Auto-generated method stub
-        return null;
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        try
+        {
+            PrintWriter writer = new PrintWriter(this.path);
+            writer.print("");
+            writer.close();
+
+            fw = new FileWriter(this.path);
+            bw = new BufferedWriter(fw);
+
+            for (Eleve eleve : eleves)
+            {
+
+                bw.write(this.eleveToString(eleve));
+                bw.newLine();
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                bw.close();
+                fw.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

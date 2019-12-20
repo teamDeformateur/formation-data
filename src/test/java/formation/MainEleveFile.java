@@ -12,7 +12,7 @@ public class MainEleveFile
 
     public static void main(String[] args) throws ParseException
     {
-        EleveDao eleveDao = new EleveDaoFile("c:/eleves.txt");
+        EleveDao eleveDao = new EleveDaoFile("./src/main/resources/eleves.txt");
 
         Eleve marie = new Eleve("VINH", "Marie");
         marie.setId(15L);
